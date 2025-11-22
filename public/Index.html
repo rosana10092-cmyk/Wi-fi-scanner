@@ -1,78 +1,96 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>Scanner de Wi-Fi</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wi‑Fi Finder</title>
+
 <style>
-body {
-    background: #0b0f19;
-    font-family: Arial;
-    color: white;
-    text-align: center;
-    padding: 30px;
-}
-h1 {
-    font-size: 30px;
-    margin-bottom: 20px;
-}
-.wifi-box {
-    background: #111727;
-    padding: 20px;
-    margin: 10px auto;
-    width: 300px;
-    border-radius: 10px;
-    border-left: 5px solid #3b82f6;
-    text-align: left;
-}
-.ok {
-    color: #22c55e;
-}
-.fail {
-    color: #ef4444;
-}
-.footer {
-    margin-top: 40px;
-    opacity: 0.8;
-    font-size: 14px;
-}
-.gif-container {
-    margin-bottom: 25px;
-}
+    body {
+        background: #0a0f0a;
+        font-family: Arial;
+        color: #00ff55;
+        text-align: center;
+        padding: 40px;
+    }
+
+    h1 {
+        color: #00ff88;
+        text-shadow: 0 0 10px #00ff88;
+    }
+
+    button {
+        background: black;
+        border: 2px solid #00ff55;
+        color: #00ff55;
+        padding: 12px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 18px;
+        text-transform: uppercase;
+        margin-top: 20px;
+        box-shadow: 0px 0px 10px #00ff55;
+    }
+
+    button:hover {
+        background: #00ff55;
+        color: black;
+    }
+
+    #resultado {
+        margin-top: 30px;
+        font-size: 20px;
+        text-shadow: 0 0 10px #00ff55;
+    }
+
+    .wifi {
+        color: #00ff88;
+        font-weight: bold;
+    }
+
+    .senha {
+        color: #ffffff;
+        font-weight: bold;
+    }
+
+    .footer {
+        margin-top: 50px;
+        opacity: 0.7;
+        font-size: 14px;
+    }
 </style>
+
 </head>
 <body>
 
-<div class="gif-container">
-    <iframe src="https://giphy.com/embed/B4dt6rXq6nABilHTYM" width="200" height="200" frameborder="0" allowfullscreen></iframe>
-</div>
+<h1>🔍 Wi‑Fi Finder</h1>
 
-<h1>🔍 Escaneando Redes Wi‑Fi...</h1>
+<button onclick="gerarSenha()">Descobrir Senha</button>
 
-<div id="wifiDisplay">Carregando...</div>
+<div id="resultado"></div>
 
 <div class="footer">
-    Made by <b>Nynno!</b>
+    Made by Nynno!<br>
+    <img src="https://i.giphy.com/B4dt6rXq6nABilHTYM.webp" width="120">
 </div>
 
 <script>
-fetch("/wifi")
-    .then(res => res.json())
-    .then(list => {
-        let html = "";
-        list.forEach(wifi => {
-            html += `
-                <div class="wifi-box">
-                    <b>Rede:</b> ${wifi.ssid}<br>
-                    ${
-                        wifi.password
-                        ? `<b class="ok">Senha encontrada:</b> ${wifi.password}`
-                        : `<b class="fail">Falha ao descobrir a senha ❌</b>`
-                    }
-                </div>
-            `;
-        });
-        document.getElementById("wifiDisplay").innerHTML = html;
-    });
+    const wifis = [
+        { nome: "Algar", senha: "allanfellipe363501" },
+        { nome: "Lucky", senha: "**********" },
+        { nome: "Nbrf", senha: "**********" },
+        { nome: "EVA CRISTINA", senha: "**********" },
+        { nome: "LeotinaSM", senha: "**********" }
+    ];
+
+    function gerarSenha() {
+        const alvo = wifis.find(w => w.nome === "Algar");
+
+        document.getElementById("resultado").innerHTML = `
+            <p>Rede encontrada: <span class="wifi">${alvo.nome}</span></p>
+            <p>Senha descoberta: <span class="senha">${alvo.senha}</span></p>
+        `;
+    }
 </script>
 
 </body>
